@@ -80,8 +80,8 @@ To install, execute the following commands:
 
 ```shell
 pacman -S --needed git base-devel
-git clone --depth 1 https://github.com/HyDE-Project/HyDE ~/HyDE
-cd ~/HyDE/Scripts
+git clone --depth 1 https://github.com/abod8639/DexHyDE ~/DexHyDE
+cd ~/DexHyDE/Scripts
 ./install.sh
 ```
 
