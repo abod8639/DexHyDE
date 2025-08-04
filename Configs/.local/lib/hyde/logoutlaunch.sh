@@ -49,10 +49,11 @@ case "${wlogoutStyle}" in
     export y_hvr=$((y_mon * 20 / hypr_scale))
     ;;
 esac
+echo "wlTmplt: ${wlTmplt}"
 
 #// scale font size
 
-export fntSize=$((y_mon * 2 / 100))
+export fntSize=$((y_mon * 1 / 100))
 
 #// detect wallpaper brightness
 
