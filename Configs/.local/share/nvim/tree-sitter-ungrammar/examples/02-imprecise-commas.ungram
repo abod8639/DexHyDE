@@ -1,5 +1,0 @@
-FieldList =
-  '{' Field* '}'
-
-Field:
-  Name ':' Type ','?

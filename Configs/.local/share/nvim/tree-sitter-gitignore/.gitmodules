@@ -1,3 +1,0 @@
-[submodule "test/gitignore"]
-	path = test/gitignore
-	url = https://github.com/toptal/gitignore

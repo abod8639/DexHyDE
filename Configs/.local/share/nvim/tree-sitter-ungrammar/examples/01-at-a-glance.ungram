@@ -1,4 +1,0 @@
-Module =
-  Attr* Visibility?
-  'mod' Name
-  (ItemList | ';')

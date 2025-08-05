@@ -1,8 +1,0 @@
-x echo "foo"
-# <- keyword
-
-exec echo "foo"
-# <- keyword
-
-break
-# <- keyword

@@ -1,3 +1,0 @@
-Expr =
-  literal
-| lhs:Expr op:('+' | '-' | '*' | '/') rhs:Expr
