@@ -1,0 +1,23 @@
+==========================
+fallible
+==========================
+
+# result: 1
+
+{
+  parse_json("invalid")
+  2
+} ?? 1
+
+--------------------------
+
+(program
+  (comment)
+  (binary_expression
+    left: (block
+      (function_call
+        function_name: (ident)
+        (arguments
+          (string)))
+        (integer))
+    right: (integer)))

@@ -1,0 +1,403 @@
+==========================
+Abort
+==========================
+
+# result: { "foo": true }
+
+.foo = true
+.return = abort
+.bar = false
+assert!(false)
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (abort))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (function_call
+    function_name: (ident)
+    (arguments
+      (boolean))))
+
+==========================
+Abort typedef
+==========================
+
+# result: {
+#   "a": {
+#     "never": true
+#   },
+#   "b": {
+#     "bytes": true
+#   },
+#   "b2": {
+#     "bytes": true
+#   },
+#   "c": {
+#     "never": true
+#   },
+#   "d": {
+#     "object": {}
+#   },
+#   "e": {
+#     "null": true
+#   },
+#   "f": {
+#     "bytes": true,
+#     "integer": true
+#   },
+#   "g": {
+#     "bytes": true
+#   }
+# }
+
+
+x = "string"
+
+.a = type_def({abort})
+.b = type_def({if false {abort} else {"string"}})
+.b2 = type_def({if true {abort} else {"string"}})
+.c = type_def({abort {if false {abort} else {"string"}}})
+.d = type_def({{} | {abort}})
+.e = type_def({ if false {abort} })
+.f = type_def({
+   x = "string"
+   if false {
+      abort
+   } else {
+      x = 3
+   }
+   x
+})
+.g = type_def({
+   abort
+   "string"
+})
+.
+
+--------------------------
+
+(program
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (string))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (abort)))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (if_statement
+            condition: (predicate
+              (boolean))
+            (block
+              (abort))
+            (block
+              (string)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (if_statement
+            condition: (predicate
+              (boolean))
+            (block
+              (abort))
+            (block
+              (string)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (abort
+            message: (block
+              (if_statement
+                condition: (predicate
+                  (boolean))
+                (block
+                  (abort))
+                (block
+                  (string)))))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (binary_expression
+            left: (object)
+            right: (block
+              (abort)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (if_statement
+            condition: (predicate
+              (boolean))
+            (block
+              (abort)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (assignment
+            left: (assign_target
+              (ident))
+            right: (string))
+          (if_statement
+            condition: (predicate
+              (boolean))
+            (block
+              (abort))
+            (block
+              (assignment
+                left: (assign_target
+                  (ident))
+                right: (integer))))
+          (ident)))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (abort)
+          (string)))))
+  (query
+    (event)))
+
+==========================
+Abort with complex message
+==========================
+
+# result: { "foo": true, "id": 1 }
+
+.id = 1
+.foo = true
+abort {
+    if !.foo {
+        "aw man " + to_string(.id)
+    } else {
+        "uh oh " + uuid_v4()
+    }
+}
+.bar = false
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (integer))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (abort
+    message: (block
+      (if_statement
+        condition: (predicate
+          (unary_expression
+            right: (query
+              (event)
+              (path
+                (field)))))
+        (block
+          (binary_expression
+            left: (string)
+            right: (function_call
+              function_name: (ident)
+              (arguments
+                (query
+                  (event)
+                  (path
+                    (field)))))))
+        (block
+          (binary_expression
+            left: (string)
+            right: (function_call
+              function_name: (ident)
+              (arguments)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean)))
+
+==========================
+Abort with message
+==========================
+
+# result: { "foo": true }
+
+.foo = true
+abort "a custom abort message"
+.bar = false
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (abort
+    message: (string))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean)))
+
+==========================
+Nested abort
+==========================
+
+# result: {}
+
+abort { abort }
+abort { if false {"message"} else { abort } }
+abort { if true {"message"} else { abort } }
+assert!(false)
+
+--------------------------
+
+(program
+  (comment)
+  (abort
+    message: (block
+      (abort)))
+  (abort
+    message: (block
+      (if_statement
+        condition: (predicate
+          (boolean))
+        (block
+          (string))
+        (block
+          (abort)))))
+  (abort
+    message: (block
+      (if_statement
+        condition: (predicate
+          (boolean))
+        (block
+          (string))
+        (block
+          (abort)))))
+  (function_call
+    function_name: (ident)
+    (arguments
+      (boolean))))

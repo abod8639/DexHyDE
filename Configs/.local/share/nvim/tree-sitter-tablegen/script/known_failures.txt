@@ -1,0 +1,14 @@
+examples/llvm-project/llvm/test/TableGen/UnterminatedComment.td
+examples/llvm-project/llvm/test/TableGen/foreach-range-parse-errors0.td
+examples/llvm-project/llvm/test/TableGen/ifstmt.td
+examples/llvm-project/llvm/test/TableGen/nul-char.td
+examples/llvm-project/llvm/test/TableGen/paste-reserved.td
+examples/llvm-project/llvm/test/TableGen/prep-diag6.td
+examples/llvm-project/llvm/test/TableGen/prep-diag8.td
+examples/llvm-project/llvm/test/TableGen/prep-ifndef-diag-1.td
+examples/llvm-project/llvm/test/TableGen/prep-ifndef-diag-2.td
+examples/llvm-project/llvm/test/TableGen/prep-region-processing.td
+examples/llvm-project/llvm/test/TableGen/spurious-semi.td
+examples/llvm-project/llvm/test/TableGen/template-args.td
+examples/llvm-project/llvm/test/TableGen/unterminated-c-comment.td
+examples/llvm-project/llvm/test/TableGen/unterminated-code-block.td

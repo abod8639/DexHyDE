@@ -1,0 +1,13 @@
+let id   = \x -> x
+let zero = \f x -> x
+
+eval id_zero :
+  id zero
+  =d> (\x -> x) (\f x -> x)   -- expand definitions
+  =a> (\z -> z) (\f x -> x)   -- alpha rename
+  =b> (\f x -> x)             -- beta reduce
+  =d> zero                    -- expand definitions
+
+eval id_zero_tr :
+  id zero
+  =*> zero                    -- transitive reductions

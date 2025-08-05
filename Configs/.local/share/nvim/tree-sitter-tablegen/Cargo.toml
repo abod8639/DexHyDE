@@ -1,0 +1,27 @@
+[package]
+name = "tree-sitter-tablegen"
+description = "LLVM TableGen grammar for tree-sitter"
+version = "0.0.1"
+authors = [
+	"Sebastian Neubauer <flakebi@t-online.de>",
+	"Amaan Qureshi <amaanq12@gmail.com>",
+]
+license = "MIT"
+readme = "bindings/rust/README.md"
+keywords = ["incremental", "parsing", "tablegen"]
+categories = ["parsing", "text-editors"]
+repository = "https://github.com/amaanq/tree-sitter-tablegen"
+edition = "2018"
+autoexamples = false
+
+build = "bindings/rust/build.rs"
+include = ["bindings/rust/*", "grammar.js", "queries/*", "src/*"]
+
+[lib]
+path = "bindings/rust/lib.rs"
+
+[dependencies]
+tree-sitter = "~0.20.9"
+
+[build-dependencies]
+cc = "1.0"

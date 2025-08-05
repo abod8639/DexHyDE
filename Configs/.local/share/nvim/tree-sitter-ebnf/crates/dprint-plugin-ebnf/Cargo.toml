@@ -1,0 +1,22 @@
+[package]
+name = "dprint-plugin-ebnf"
+version = "0.1.1"
+categories = ["development-tools"]
+edition = "2021"
+keywords = ["formatting", "formatter", "ebnf", "dprint"]
+license = "GPL-3.0-only"
+repository = "https://github.com/RubixDev/ebnf"
+description = "A dprint plugin for formatting the ISO 14977 EBNF notation"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["lib", "cdylib"]
+
+[dependencies]
+anyhow = "1.0.65"
+dprint-core = { version = "0.59.0", features = ["wasm"] }
+ebnf-fmt = { version = "0.1.0", path = "../ebnf-fmt", features = ["serde", "fromstr"] }
+heck-but-macros = "0.0.1"
+serde = { version = "1.0.145", features = ["derive"] }
+serde_json = "1.0.85"

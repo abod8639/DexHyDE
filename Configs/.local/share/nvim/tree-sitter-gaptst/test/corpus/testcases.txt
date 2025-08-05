@@ -1,0 +1,348 @@
+============
+Test case 1
+============
+
+gap> a:=2;
+2
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (output_line))
+)
+
+============
+Test case 2
+============
+
+gap> a:=2;
+2
+gap> a:="Hello\nWorld";
+Hello
+World
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line)
+    (output_line))
+)
+
+============
+Test case 3
+============
+
+gap> a:=2;
+2
+gap> a:="Hello\nWorld\n";
+Hello
+World
+
+gap> Concatenation(a, "Foobar");
+Hello
+World
+
+Foobar
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line)
+    (output_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line)
+    (output_line)
+    (output_line)
+    (output_line))
+)
+
+============
+Test case 3
+============
+
+gap> a:=2;
+2
+gap> a:="Hello\nWorld\n";
+Hello
+World
+
+gap> Concatenation(a, "Foobar");;
+gap> 2+2;
+4
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line)
+    (output_line)
+    (output_line))
+  (test_case
+    (input_line))
+  (test_case
+    (input_line)
+    (output_line))
+)
+
+============
+Test case 4
+============
+
+gap> a:=2;
+2
+gap> a:="Hello\nWorld\n";
+Hello
+World
+
+gap> Concatenation(a, "Foobar");;
+gap> 2+2;
+4
+gap> Concatenation(a, "Foobar");;
+gap> 2+2;;
+
+gap> hello:=fail;
+fail
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line)
+    (output_line)
+    (output_line))
+  (test_case
+    (input_line))
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line))
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line))
+)
+
+============
+Test case 5
+============
+
+gap> a:=2;;
+
+---
+
+(test_file
+  (test_case
+    (input_line))
+)
+
+============
+Test case 6
+============
+
+gap> a:=\
+> 2;;
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (input_line))
+)
+
+============
+Test case 7
+============
+
+gap> A:=[
+> [1, 2], [3, 4]
+> , [5, 6]];
+[ [1, 2], [3, 4], [5, 6] ]
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (input_line)
+    (input_line)
+    (output_line))
+)
+
+============
+Test case 8
+============
+
+gap> A:=[
+> [1, 2], [3, 4]
+> , [5, 6]];
+[ [1, 2], [3, 4], [5, 6] ]
+gap> B:= Concatenation(
+> "a", "b" 
+> );
+"ab"
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (input_line)
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (input_line)
+    (input_line)
+    (output_line))
+)
+
+============
+Test case 9
+============
+
+gap> foo();
+g
+gap> foo();
+ga
+gap> foo();
+gap
+gap> foo();
+gap>
+gap> foo();
+gap>123;
+gap> foo();
+gap>
+>
+bar
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (output_line)
+    (output_line)
+    (output_line))
+)
+
+============
+Test case 10
+============
+
+gap> foobar(); # Comment
+baz
+gap> foobar() # Comment
+> ;
+baz
+gap> 1+1 # Comment
+> +2 # World
+> +10; # Comment
+14
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line)
+    (input_line)
+    (input_line)
+    (output_line))
+)
+
+============
+Test case 11
+============
+
+gap> foobar(); # Comment
+baz
+gap> # Comment
+gap> ## Comment
+
+---
+
+(test_file
+  (test_case
+    (input_line)
+    (output_line))
+  (test_case
+    (input_line))
+  (test_case
+    (input_line))
+)
+
+============
+Test case 12
+============
+
+# Source
+# tst/testbugfix-2013-08-21-t00295.tst
+# 2013/08/21 (MH)
+gap> . . . .
+Syntax error: Badly formed number: need a digit before or after the decimal po\
+int in stream:1
+. . . .
+^
+Syntax error: Record component name expected in stream:2
+
+---
+
+(test_file
+  (comment)
+  (comment)
+  (comment)
+  (test_case
+    (input_line)
+    (output_line)
+    (output_line)
+    (output_line)
+    (output_line)
+    (output_line))
+)

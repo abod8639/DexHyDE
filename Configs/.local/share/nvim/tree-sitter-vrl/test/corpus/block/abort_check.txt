@@ -1,0 +1,40 @@
+==========================
+abort_check
+==========================
+
+# see: https://github.com/vectordotdev/vector/issues/13527
+# result: {"a": "string"}
+
+.a = "string"
+{
+  _x = .a
+  .a = abort
+}
+
+--------------------------
+
+(program
+  (comment)
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (string))
+  (block
+    (assignment
+      left: (assign_target
+        (ident))
+      right: (query
+        (event)
+        (path
+          (field))))
+    (assignment
+      left: (assign_target
+        (query
+          (event)
+          (path
+            (field))))
+      right: (abort))))

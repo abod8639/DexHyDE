@@ -1,0 +1,12 @@
+eval ex1:
+  (\x y -> x y) (\x -> x) b 
+  =*> b
+
+eval ex2:
+  (\x y -> x y) (\x -> x) b 
+  =~> b
+
+eval ex3:
+  (\x y -> x y) (\x -> x) (\z -> z) 
+  =*> (\x -> x) (\z -> z) 
+  =b> (\z -> z)

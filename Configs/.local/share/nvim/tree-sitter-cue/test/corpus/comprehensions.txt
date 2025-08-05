@@ -1,0 +1,41 @@
+===
+struct
+===
+
+c: {
+    for x in a
+    if x < 4
+    let y = 1 {
+        "\(x)": x + y
+    }
+}
+
+---
+
+(source_file
+ (field (label (identifier))
+	(value (struct_lit
+					(comprehension
+					 (for_clause (identifier) (identifier))
+					 (guard_clause (binary_expression (identifier) (number)))
+					 (let_clause (identifier) (number))
+					 (struct_lit
+					  (field
+						 (label (string (interpolation (identifier))))
+						 (value (binary_expression (identifier) (identifier))))))))))
+
+===
+list
+===
+
+b: [ for x in a if x > 1 { x+1 } ]
+
+--
+
+(source_file
+ (field (label (identifier))
+	(value (list_lit 
+					(comprehension 
+					 (for_clause (identifier) (identifier)) 
+					 (guard_clause (binary_expression (identifier) (number))) 
+					 (struct_lit (binary_expression (identifier) (number))))))))

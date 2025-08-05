@@ -1,0 +1,133 @@
+====
+Assignment
+====
+
+foo = bar
+
+page = PAGE
+
+---
+(typoscript
+  (assignment_line
+    (identifier)
+    (value))
+  (assignment_line
+    (identifier)
+    (cobject)))
+
+
+====
+Assignment with html code
+====
+
+foo = <ul>
+
+---
+(typoscript
+  (assignment_line
+    (identifier)
+    (value)
+    (value)))
+
+
+====
+Nested assignment
+====
+
+foo.bar = baz
+
+---
+(typoscript
+  (assignment_line
+    (identifier)
+    (value)))
+
+
+====
+Double nested assignment
+====
+
+foo.bar.baz = baz
+
+---
+(typoscript
+  (assignment_line
+    (identifier)
+    (value)))
+
+
+
+====
+Assignment with comment (comment has to be treated as part of the value)
+====
+
+foo = bar # comment
+
+---
+(typoscript
+  (assignment_line
+    (identifier)
+    (value)))
+
+
+====
+Assignment with parenthese like multiline value but isn't 
+====
+
+foo = (
+
+---
+(typoscript
+  (assignment_line
+    (identifier)
+    (value)))
+
+
+====
+Assignment with multiline value 
+====
+
+foo (
+bar
+)
+
+---
+(typoscript
+  (multiline_line
+    (identifier)
+    (multiline_value)))
+
+
+
+====
+Assignment with multiline value and constant 
+====
+
+foo (
+bar {$test} baz
+foobar
+)
+
+---
+(typoscript
+  (multiline_line
+    (identifier)
+    (multiline_value
+      (constant))))
+
+
+====
+Assignment with multiline value and parentheses inline
+====
+
+foo (
+bar (baz
+foobar)
+test
+)
+
+---
+(typoscript
+  (multiline_line
+    (identifier)
+    (multiline_value)))

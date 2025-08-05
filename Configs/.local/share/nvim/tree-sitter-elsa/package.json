@@ -1,0 +1,46 @@
+{
+  "name": "tree-sitter-elsa",
+  "version": "1.1.0",
+  "description": "Elsa grammar for tree-sitter",
+  "main": "bindings/node",
+  "keywords": [
+    "parser",
+    "lexer",
+    "elsa"
+  ],
+  "author": "Miles Glapa-Grossklag <miles@glapa-grossklag.com>",
+  "contributors": [
+    "amaanq (Amaan Qureshi) <amaanq12@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glapa-grossklag/tree-sitter-elsa/issues"
+  },
+  "homepage": "https://github.com/glapa-grossklag/tree-sitter-elsa#readme",
+  "dependencies": {
+    "nan": "^2.15.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "eslint-config-google": "^0.14.0",
+    "tree-sitter-cli": "^0.20.6"
+  },
+  "repository": "https://github.com/glapa-grossklag/tree-sitter-elsa",
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "test": "tree-sitter test && script/parse-examples",
+    "parse": "tree-sitter parse",
+    "test-windows": "tree-sitter test"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.lc",
+      "file-types": [
+        "lc"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ]
+    }
+  ]
+}

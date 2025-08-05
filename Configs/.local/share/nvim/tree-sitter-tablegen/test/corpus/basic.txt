@@ -1,0 +1,806 @@
+================================================================================
+Basic Example
+================================================================================
+
+def ADD32rr {   // Instruction X86Inst I
+  string Namespace = "X86";
+  dag OutOperandList = (outs GR32:$dst);
+  dag InOperandList = (ins GR32:$src1, GR32:$src2);
+  string AsmString = "add{l}\t{$src2, $dst|$dst, $src2}";
+  list<dag> Pattern = [(set GR32:$dst, (add GR32:$src1, GR32:$src2))];
+  list<Register> Uses = [];
+  list<Register> Defs = [EFLAGS];
+  list<Predicate> Predicates = [];
+  bit hasSideEffects = 0;
+  InstrItinClass Itinerary = NoItinerary;
+  string DisableEncoding = "";
+  bits<8> Opcode = { 0, 0, 0, 0, 0, 0, 0, 1 };
+  Format Form = MRMDestReg;
+  ImmType ImmT = NoImm;
+  FPFormat FPForm = ?;
+}
+
+---
+
+(tablegen_file
+  (def
+    (value
+      (identifier))
+    (record_body
+      (body
+        (comment)
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (string
+                (string_content)))))
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))
+                (dag_arg_list
+                  (dag_arg
+                    (value
+                      (identifier))
+                    (var)))))))
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))
+                (dag_arg_list
+                  (dag_arg
+                    (value
+                      (identifier))
+                    (var))
+                  (dag_arg
+                    (value
+                      (identifier))
+                    (var)))))))
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (string
+                (string_content)
+                (escape_sequence)
+                (string_content)))))
+        (body_item
+          (instruction
+            (list_type
+              (primitive_type))
+            (identifier)
+            (value
+              (list_initializer
+                (value_list
+                  (value
+                    (dag_initializer
+                      (dag_arg
+                        (value
+                          (identifier)))
+                      (dag_arg_list
+                        (dag_arg
+                          (value
+                            (identifier))
+                          (var))
+                        (dag_arg
+                          (value
+                            (dag_initializer
+                              (dag_arg
+                                (value
+                                  (identifier)))
+                              (dag_arg_list
+                                (dag_arg
+                                  (value
+                                    (identifier))
+                                  (var))
+                                (dag_arg
+                                  (value
+                                    (identifier))
+                                  (var))))))))))))))
+        (body_item
+          (instruction
+            (list_type
+              (class_identifier))
+            (identifier)
+            (value
+              (list_initializer))))
+        (body_item
+          (instruction
+            (list_type
+              (class_identifier))
+            (identifier)
+            (value
+              (list_initializer
+                (value_list
+                  (value
+                    (identifier)))))))
+        (body_item
+          (instruction
+            (list_type
+              (class_identifier))
+            (identifier)
+            (value
+              (list_initializer))))
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (integer))))
+        (body_item
+          (instruction
+            (class_identifier)
+            (identifier)
+            (value
+              (identifier))))
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (string))))
+        (body_item
+          (instruction
+            (bits_type
+              (integer))
+            (identifier)
+            (value
+              (sequence
+                (value_list
+                  (value
+                    (integer))
+                  (value
+                    (integer))
+                  (value
+                    (integer))
+                  (value
+                    (integer))
+                  (value
+                    (integer))
+                  (value
+                    (integer))
+                  (value
+                    (integer))
+                  (value
+                    (integer)))))))
+        (body_item
+          (instruction
+            (class_identifier)
+            (identifier)
+            (value
+              (identifier))))
+        (body_item
+          (instruction
+            (class_identifier)
+            (identifier)
+            (value
+              (identifier))))
+        (body_item
+          (instruction
+            (class_identifier)
+            (identifier)
+            (value
+              (uninitialized_value))))))))
+
+================================================================================
+Class
+================================================================================
+
+class Foo {
+  int Bar = 5;
+  int Baz = Bar;
+}
+
+---
+
+(tablegen_file
+  (class
+    (identifier)
+    (record_body
+      (body
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (integer))))
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (identifier))))))))
+
+================================================================================
+Multiclass
+================================================================================
+
+multiclass Foo <int Bar> {
+  def : SomeClass<Bar>;
+}
+
+---
+
+(tablegen_file
+  (multiclass
+    (identifier)
+    (template_args
+      (template_arg
+        (primitive_type)
+        (identifier)))
+    (multiclass_body
+      (multiclass_statement
+        (def
+          (record_body
+            (parent_class_list
+              (identifier)
+              (value
+                (identifier)))
+            (body)))))))
+
+================================================================================
+Template Class
+================================================================================
+
+class A <dag d> {
+  dag the_dag = d;
+}
+
+def rec1 : A<(ops rec1)>;
+
+---
+
+(tablegen_file
+      (class
+        (identifier)
+        (template_args
+          (template_arg
+            (primitive_type)
+            (identifier)))
+        (record_body
+          (body
+            (body_item
+              (instruction
+                (primitive_type)
+                (identifier)
+                (value
+                  (identifier)))))))
+      (def
+        (value
+          (identifier))
+        (record_body
+          (parent_class_list
+            (identifier)
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))
+                (dag_arg_list
+                  (dag_arg
+                    (value
+                      (identifier)))))))
+          (body))))
+
+================================================================================
+Let In
+================================================================================
+
+let isTerminator = true, isReturn = true, isBarrier = true, hasCtrlDep = true in
+  def RET : I<0xC3, RawFrm, (outs), (ins), "ret", [(X86retflag 0)]>;
+
+let isCall = true in
+  // All calls clobber the non-callee saved registers...
+  let Defs = [EAX, ECX, EDX, FP0, FP1, FP2, FP3, FP4, FP5, FP6, ST0,
+              MM0, MM1, MM2, MM3, MM4, MM5, MM6, MM7, XMM0, XMM1, XMM2,
+              XMM3, XMM4, XMM5, XMM6, XMM7, EFLAGS] in {
+    def CALLpcrel32 : Ii32<0xE8, RawFrm, (outs), (ins i32imm:$dst, variable_ops),
+                           "call\t${dst:call}", []>;
+    def CALL32r     : I<0xFF, MRM2r, (outs), (ins GR32:$dst, variable_ops),
+                        "call\t{*}$dst", [(X86call GR32:$dst)]>;
+    def CALL32m     : I<0xFF, MRM2m, (outs), (ins i32mem:$dst, variable_ops),
+                        "call\t{*}$dst", []>;
+  }
+
+---
+
+(tablegen_file
+  (let
+    (let_list
+      (let_item
+        (identifier)
+        (value
+          (boolean)))
+      (let_item
+        (identifier)
+        (value
+          (boolean)))
+      (let_item
+        (identifier)
+        (value
+          (boolean)))
+      (let_item
+        (identifier)
+        (value
+          (boolean))))
+    (def
+      (value
+        (identifier))
+      (record_body
+        (parent_class_list
+          (identifier)
+          (value
+            (integer))
+          (value
+            (identifier))
+          (value
+            (dag_initializer
+              (dag_arg
+                (value
+                  (identifier)))))
+          (value
+            (dag_initializer
+              (dag_arg
+                (value
+                  (identifier)))))
+          (value
+            (string
+              (string_content)))
+          (value
+            (list_initializer
+              (value_list
+                (value
+                  (dag_initializer
+                    (dag_arg
+                      (value
+                        (identifier)))
+                    (dag_arg_list
+                      (dag_arg
+                        (value
+                          (integer))))))))))
+        (body))))
+  (let
+    (let_list
+      (let_item
+        (identifier)
+        (value
+          (boolean))))
+    (comment)
+    (let
+      (let_list
+        (let_item
+          (identifier)
+          (value
+            (list_initializer
+              (value_list
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier))
+                (value
+                  (identifier)))))))
+      (def
+        (value
+          (identifier))
+        (record_body
+          (parent_class_list
+            (identifier)
+            (value
+              (integer))
+            (value
+              (identifier))
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))))
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))
+                (dag_arg_list
+                  (dag_arg
+                    (value
+                      (identifier))
+                    (var))
+                  (dag_arg
+                    (value
+                      (identifier))))))
+            (value
+              (string
+                (string_content)
+                (escape_sequence)
+                (string_content)))
+            (value
+              (list_initializer)))
+          (body)))
+      (def
+        (value
+          (identifier))
+        (record_body
+          (parent_class_list
+            (identifier)
+            (value
+              (integer))
+            (value
+              (identifier))
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))))
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))
+                (dag_arg_list
+                  (dag_arg
+                    (value
+                      (identifier))
+                    (var))
+                  (dag_arg
+                    (value
+                      (identifier))))))
+            (value
+              (string
+                (string_content)
+                (escape_sequence)
+                (string_content)))
+            (value
+              (list_initializer
+                (value_list
+                  (value
+                    (dag_initializer
+                      (dag_arg
+                        (value
+                          (identifier)))
+                      (dag_arg_list
+                        (dag_arg
+                          (value
+                            (identifier))
+                          (var)))))))))
+          (body)))
+      (def
+        (value
+          (identifier))
+        (record_body
+          (parent_class_list
+            (identifier)
+            (value
+              (integer))
+            (value
+              (identifier))
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))))
+            (value
+              (dag_initializer
+                (dag_arg
+                  (value
+                    (identifier)))
+                (dag_arg_list
+                  (dag_arg
+                    (value
+                      (identifier))
+                    (var))
+                  (dag_arg
+                    (value
+                      (identifier))))))
+            (value
+              (string
+                (string_content)
+                (escape_sequence)
+                (string_content)))
+            (value
+              (list_initializer)))
+          (body))))))
+
+================================================================================
+Short Def
+================================================================================
+
+def Imm;
+
+---
+
+(tablegen_file
+  (def
+    (value
+      (identifier))
+    (record_body
+      (body))))
+
+================================================================================
+Defvar
+================================================================================
+
+defvar i = !add(i, 1);
+
+---
+
+(tablegen_file
+  (defvar
+    (identifier)
+    (value
+      (operator
+        (bang_operator)
+        (value_list
+          (value
+            (identifier))
+          (value
+            (integer)))))))
+
+================================================================================
+Foreach Loop
+================================================================================
+
+foreach i = [0, 1, 2, 3] in {
+  def R#i : Register<>;
+  def F#i : Register<>;
+}
+
+---
+
+(tablegen_file
+  (foreach
+    (foreach_iterator
+      (identifier)
+      (range_piece
+        (value
+          (list_initializer
+            (value_list
+              (value
+                (integer))
+              (value
+                (integer))
+              (value
+                (integer))
+              (value
+                (integer)))))))
+    (block
+      (def
+        (value
+          (paste_value
+            (value
+              (identifier))
+            (value
+              (identifier))))
+        (record_body
+          (parent_class_list
+            (identifier))
+          (body)))
+      (def
+        (value
+          (paste_value
+            (value
+              (identifier))
+            (value
+              (identifier))))
+        (record_body
+          (parent_class_list
+            (identifier))
+          (body))))))
+
+================================================================================
+Class
+================================================================================
+
+class PersonName<string name> {
+  assert !le(!size(name), 32), "person name is too long: " # name;
+  string Name = name;
+}
+
+class Person<string name, int age> : PersonName<name> {
+  assert !and(!ge(age, 1), !le(age, 120)), "person age is invalid: " # age;
+  int Age = age;
+}
+
+def Rec20 : Person<"Donald Knuth", 60> {
+}
+
+---
+
+(tablegen_file
+  (class
+    (identifier)
+    (template_args
+      (template_arg
+        (primitive_type)
+        (identifier)))
+    (record_body
+      (body
+        (body_item
+          (assert
+            (value
+              (operator
+                (bang_operator)
+                (value_list
+                  (value
+                    (operator
+                      (bang_operator)
+                      (value_list
+                        (value
+                          (identifier)))))
+                  (value
+                    (integer)))))
+            (value
+              (paste_value
+                (value
+                  (string
+                    (string_content)))
+                (value
+                  (identifier))))))
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (identifier)))))))
+  (class
+    (identifier)
+    (template_args
+      (template_arg
+        (primitive_type)
+        (identifier))
+      (template_arg
+        (primitive_type)
+        (identifier)))
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (identifier)))
+      (body
+        (body_item
+          (assert
+            (value
+              (operator
+                (bang_operator)
+                (value_list
+                  (value
+                    (operator
+                      (bang_operator)
+                      (value_list
+                        (value
+                          (identifier))
+                        (value
+                          (integer)))))
+                  (value
+                    (operator
+                      (bang_operator)
+                      (value_list
+                        (value
+                          (identifier))
+                        (value
+                          (integer))))))))
+            (value
+              (paste_value
+                (value
+                  (string
+                    (string_content)))
+                (value
+                  (identifier))))))
+        (body_item
+          (instruction
+            (primitive_type)
+            (identifier)
+            (value
+              (identifier)))))))
+  (def
+    (value
+      (identifier))
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (string
+            (string_content)))
+        (value
+          (integer)))
+      (body))))
+
+================================================================================
+Include
+================================================================================
+
+include "abc"
+
+---
+
+(tablegen_file
+  (include_directive
+    (string
+      (string_content))))
+
+================================================================================
+Preprocessor
+================================================================================
+
+#ifdef USE_NAMESPACE
+  let Namespace = "TestNamespace" in {
+#endif
+#ifdef USE_NAMESPACE
+  }
+#endif
+
+---
+
+(tablegen_file
+  (preprocessor_directive)
+  (let
+    (let_list
+      (let_item
+        (identifier)
+        (value
+          (string
+            (string_content)))))
+    (preprocessor_directive)
+    (preprocessor_directive))
+  (preprocessor_directive))

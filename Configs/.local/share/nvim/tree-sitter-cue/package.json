@@ -1,0 +1,37 @@
+{
+  "name": "tree-sitter-cue",
+  "version": "0.1.0",
+  "description": "Cue grammar for tree-sitter",
+  "main": "bindings/node",
+  "keywords": [
+    "parser",
+    "lexer",
+    "cue",
+    "cuelang"
+  ],
+  "author": "Jean-Philippe Braun <eon@patapon.info>",
+  "contributors": [
+    "Amaan Qureshi <amaanq12@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eonpatapon/tree-sitter-cue/issues"
+  },
+  "homepage": "https://github.com/eonpatapon/tree-sitter-cue#readme",
+  "dependencies": {
+    "nan": "^2.22.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "eslint-config-google": "^0.14.0",
+    "tree-sitter-cli": "^0.24.6"
+  },
+  "repository": "https://github.com/eonpatapon/tree-sitter-cue",
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "test": "tree-sitter test && script/parse-examples",
+    "parse": "tree-sitter parse",
+    "test-windows": "tree-sitter test",
+    "lint": "eslint grammar.js"
+  }
+}

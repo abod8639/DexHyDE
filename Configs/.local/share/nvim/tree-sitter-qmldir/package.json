@@ -1,0 +1,48 @@
+{
+  "name": "tree-sitter-qmldir",
+  "version": "0.0.1",
+  "description": "Qmldir grammar for tree-sitter",
+  "main": "bindings/node",
+  "keywords": [
+    "parser",
+    "lexer",
+    "qmldir"
+  ],
+  "author": "Decodetalkers <ShootingStarDragons@protonmail.com>",
+  "contributors": [
+    "Amaan Qureshi <amaanq12@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Decodetalkers/tree-sitter-qmldir/issues"
+  },
+  "homepage": "https://github.com/Decodetalkers/tree-sitter-qmldir#readme",
+  "dependencies": {
+    "nan": "^2.16.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-google": "^0.14.0",
+    "prettier": "^2.7.1",
+    "tree-sitter-cli": "^0.20.6"
+  },
+  "repository": "https://github.com/Decodetalkers/tree-sitter-qmldir",
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "lint": "eslint grammar.js",
+    "parse": "tree-sitter parse",
+    "test": "tree-sitter test"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.qmldir",
+      "injection-regex": "qmldir",
+      "file-types": [
+        "qmldir"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ]
+    }
+  ]
+}

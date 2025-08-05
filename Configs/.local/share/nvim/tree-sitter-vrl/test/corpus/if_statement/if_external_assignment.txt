@@ -1,0 +1,122 @@
+==========================
+If external assignment
+==========================
+
+# result: true
+
+.a = 5
+if false {
+  .a = "string"
+}
+assert!(.a == 5)
+assert!(type_def(.a) == {"integer": true, "bytes": true})
+
+.a = 5
+if true {
+  .a = "string"
+}
+assert!(.a == "string")
+assert!(type_def(.a) == {"integer": true, "bytes": true})
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (integer))
+  (if_statement
+    condition: (predicate
+      (boolean))
+    (block
+      (assignment
+        left: (assign_target
+          (query
+            (event)
+            (path
+              (field))))
+        right: (string))))
+  (function_call
+    function_name: (ident)
+    (arguments
+      (binary_expression
+        left: (query
+          (event)
+          (path
+            (field)))
+        right: (integer))))
+  (function_call
+    function_name: (ident)
+    (arguments
+      (binary_expression
+        left: (function_call
+          function_name: (ident)
+          (arguments
+            (query
+              (event)
+              (path
+                (field)))))
+        right: (object
+          (entry
+            (key
+              (string))
+            (value
+              (boolean)))
+          (entry
+            (key
+              (string))
+            (value
+              (boolean)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (integer))
+  (if_statement
+    condition: (predicate
+      (boolean))
+    (block
+      (assignment
+        left: (assign_target
+          (query
+            (event)
+            (path
+              (field))))
+        right: (string))))
+  (function_call
+    function_name: (ident)
+    (arguments
+      (binary_expression
+        left: (query
+          (event)
+          (path
+            (field)))
+        right: (string))))
+  (function_call
+    function_name: (ident)
+    (arguments
+      (binary_expression
+        left: (function_call
+          function_name: (ident)
+          (arguments
+            (query
+              (event)
+              (path
+                (field)))))
+        right: (object
+          (entry
+            (key
+              (string))
+            (value
+              (boolean)))
+          (entry
+            (key
+              (string))
+            (value
+              (boolean))))))))

@@ -1,0 +1,27 @@
+==========================
+Boolean Literals
+==========================
+
+.true = true
+.false = false
+.
+
+--------------------------
+
+(program
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (query
+    (event)))

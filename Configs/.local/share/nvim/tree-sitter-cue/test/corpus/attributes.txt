@@ -1,0 +1,53 @@
+===
+build
+===
+
+@if(foo)
+
+package foo
+
+---
+
+(source_file
+ (attribute (identifier) (identifier))
+ (package_clause (package_identifier)))
+
+
+===
+data
+===
+
+a: string @tag(type=bool,short=foo|bar)
+b: {
+    @foo(bar)
+    c: 1
+}
+
+---
+
+(source_file
+  (field
+	(label
+	  (identifier))
+	(value
+	  (primitive_type))
+	(attribute
+	  (identifier)
+	  (identifier)
+	  (primitive_type)
+	  (identifier)
+	  (identifier)
+	  (identifier)))
+  (field
+	(label
+	  (identifier))
+	(value
+	  (struct_lit
+		(attribute
+		  (identifier)
+		  (identifier))
+		(field
+		  (label
+			(identifier))
+		  (value
+			(number)))))))

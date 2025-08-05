@@ -1,0 +1,32 @@
+{
+  "name": "tree-sitter-sxhkdrc",
+  "version": "1.0.0",
+  "description": "SH grammar for tree-sitter",
+  "main": "bindings/node",
+  "keywords": [
+    "tree-sitter",
+    "parser",
+    "sxhkdrc",
+    "sxhkd"
+  ],
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "author": "Raafat Turki",
+  "license": "ISC",
+  "dependencies": {
+    "nan": "^2.16.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.6"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.sxhkdrc",
+      "file-types": [
+        "sxhkdrc"
+      ],
+      "injection-regex": "^sxhkdrc$"
+    }
+  ]
+}

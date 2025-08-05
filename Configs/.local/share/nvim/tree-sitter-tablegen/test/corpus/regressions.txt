@@ -1,0 +1,580 @@
+================================================================================
+Trailing Comma
+================================================================================
+
+def OMP_Tile : Directive<"tile"> {
+  let allowedOnceClauses = [
+    VersionedClause<OMPC_Sizes, 51>,
+  ];
+}
+
+---
+
+(tablegen_file
+  (def
+    (value
+      (identifier))
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (string
+            (string_content))))
+      (body
+        (body_item
+          (let_instruction
+            (identifier)
+            (value
+              (list_initializer
+                (value_list
+                  (value
+                    (anonymous_record
+                      (identifier)
+                      (value
+                        (identifier))
+                      (value
+                        (integer)))))))))))))
+
+================================================================================
+Trailing Comma in Cond
+================================================================================
+
+class WMMA_REGS<string Geom, string Frag, string PtxEltType> {
+  list<LLVMType> regs = !cond(
+    !eq(gft,"m8n8k4:a:f16") : !listsplat(llvm_v2f16_ty, 2),
+  );
+}
+
+---
+
+(tablegen_file
+  (class
+    (identifier)
+    (template_args
+      (template_arg
+        (primitive_type)
+        (identifier))
+      (template_arg
+        (primitive_type)
+        (identifier))
+      (template_arg
+        (primitive_type)
+        (identifier)))
+    (record_body
+      (body
+        (body_item
+          (instruction
+            (list_type
+              (class_identifier))
+            (identifier)
+            (value
+              (operator
+                (cond_operator)
+                (cond_clause
+                  (value
+                    (operator
+                      (bang_operator)
+                      (value_list
+                        (value
+                          (identifier))
+                        (value
+                          (string
+                            (string_content))))))
+                  (value
+                    (operator
+                      (bang_operator)
+                      (value_list
+                        (value
+                          (identifier))
+                        (value
+                          (integer))))))))))))))
+
+================================================================================
+Multiclass Generic Base Class
+================================================================================
+
+multiclass SystemZUnaryBHFG<string name> : SystemZUnaryBHF<name> {
+  def g : SystemZUnary<name#"g", llvm_v2i64_ty>;
+}
+
+---
+
+(tablegen_file
+  (multiclass
+    (identifier)
+    (template_args
+      (template_arg
+        (primitive_type)
+        (identifier)))
+    (parent_class_list
+      (identifier)
+      (value
+        (identifier)))
+    (multiclass_body
+      (multiclass_statement
+        (def
+          (value
+            (identifier))
+          (record_body
+            (parent_class_list
+              (identifier)
+              (value
+                (paste_value
+                  (value
+                    (identifier))
+                  (value
+                    (string
+                      (string_content)))))
+              (value
+                (identifier)))
+            (body)))))))
+
+================================================================================
+Field
+================================================================================
+
+class AArch64Inst<Format f, string cstr> : Instruction {
+  field bits<32> Inst; // Instruction encoding.
+}
+
+---
+
+(tablegen_file
+  (class
+    (identifier)
+    (template_args
+      (template_arg
+        (class_identifier)
+        (identifier))
+      (template_arg
+        (primitive_type)
+        (identifier)))
+    (record_body
+      (parent_class_list
+        (identifier))
+      (body
+        (body_item
+          (instruction
+            (bits_type
+              (integer))
+            (identifier)))
+        (comment)))))
+
+================================================================================
+Empty Multiclass Body
+================================================================================
+
+multiclass FRIntNNT<bits<2> opcode, string asm, SDPatternOperator node = null_frag> :
+      SingleOperandFPNo16<{0b0100,opcode}, asm, node>;
+
+---
+
+(tablegen_file
+  (multiclass
+    (identifier)
+    (template_args
+      (template_arg
+        (bits_type
+          (integer))
+        (identifier))
+      (template_arg
+        (primitive_type)
+        (identifier))
+      (template_arg
+        (class_identifier)
+        (identifier)
+        (value
+          (identifier))))
+    (parent_class_list
+      (identifier)
+      (value
+        (sequence
+          (value_list
+            (value
+              (integer))
+            (value
+              (identifier)))))
+      (value
+        (identifier))
+      (value
+        (identifier)))
+    (multiclass_body)))
+
+================================================================================
+No Dot in Identifier
+================================================================================
+
+multiclass sve_int_dup_imm_pred_merge_inst {
+  def : Pat<(SVE8BitLslImm<scalarty>.Pat i32:$imm)>;
+}
+
+---
+
+(tablegen_file
+  (multiclass
+    (identifier)
+    (multiclass_body
+      (multiclass_statement
+        (def
+          (record_body
+            (parent_class_list
+              (identifier)
+              (value
+                (dag_initializer
+                  (dag_arg
+                    (value
+                      (anonymous_record
+                        (identifier)
+                        (value
+                          (identifier)))
+                      (value_suffix
+                        (identifier))))
+                  (dag_arg_list
+                    (dag_arg
+                      (value
+                        (identifier))
+                      (var))))))
+            (body)))))))
+
+================================================================================
+Value in Range Piece
+================================================================================
+
+class C {
+  let Inst{14} = !if(ps.has_glc, cpol{CPolBit.GLC}, ps.glc_value);
+}
+
+---
+
+(tablegen_file
+  (class
+    (identifier)
+    (record_body
+      (body
+        (body_item
+          (let_instruction
+            (identifier)
+            (range_list
+              (range_piece
+                (value
+                  (integer))))
+            (value
+              (operator
+                (bang_operator)
+                (value_list
+                  (value
+                    (identifier)
+                    (value_suffix
+                      (identifier)))
+                  (value
+                    (identifier)
+                    (value_suffix
+                      (range_list
+                        (range_piece
+                          (value
+                            (identifier)
+                            (value_suffix
+                              (identifier)))))))
+                  (value
+                    (identifier)
+                    (value_suffix
+                      (identifier))))))))))))
+
+================================================================================
+Multiline Comment
+================================================================================
+
+/********** ========================================= **********/
+
+---
+
+(tablegen_file
+  (multiline_comment))
+
+================================================================================
+Multiple Multiline Comments
+================================================================================
+
+/********** ================== **********/
+def : GCNPat <
+  (V_CNDMASK_B32_e64 /*src0mod*/(i32 0), /*src0*/(i32 0))
+>;
+
+---
+
+(tablegen_file
+  (multiline_comment)
+  (def
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (dag_initializer
+            (dag_arg
+              (value
+                (identifier)))
+            (multiline_comment)
+            (dag_arg_list
+              (dag_arg
+                (value
+                  (dag_initializer
+                    (dag_arg
+                      (value
+                        (identifier)))
+                    (dag_arg_list
+                      (dag_arg
+                        (value
+                          (integer)))))))
+              (multiline_comment)
+              (dag_arg
+                (value
+                  (dag_initializer
+                    (dag_arg
+                      (value
+                        (identifier)))
+                    (dag_arg_list
+                      (dag_arg
+                        (value
+                          (integer)))))))))))
+      (body))))
+
+================================================================================
+Complicated Dag Arg
+================================================================================
+
+def : Pat<(VTIs[0].Vec MQPR:$offsets)>;
+
+---
+
+(tablegen_file
+  (def
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (dag_initializer
+            (dag_arg
+              (value
+                (identifier)))
+            (dag_arg_list
+              (dag_arg
+                (value
+                  (list_initializer
+                    (value_list
+                      (value
+                        (integer))))
+                  (value_suffix
+                    (identifier))))
+              (dag_arg
+                (value
+                  (identifier))
+                (var))))))
+      (body))))
+
+================================================================================
+Foreach Loop
+================================================================================
+
+foreach Size = {2...6,8,16} in {
+}
+
+---
+
+(tablegen_file
+  (foreach
+    (foreach_iterator
+      (identifier)
+      (range_list
+        (range_piece
+          (value
+            (integer))
+          (value
+            (integer)))
+        (range_piece
+          (value
+            (integer)))
+        (range_piece
+          (value
+            (integer)))))
+    (block)))
+
+================================================================================
+String with Escape Sequence
+================================================================================
+
+def NAME : C<".this \"should not emit\" ">;
+
+---
+
+(tablegen_file
+  (def
+    (value
+      (identifier))
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (string
+            (string_content)
+            (escape_sequence)
+            (string_content)
+            (escape_sequence)
+            (string_content))))
+      (body))))
+
+================================================================================
+Identifier Starting with a Number
+================================================================================
+
+def 8rr : I8rr;
+
+---
+
+(tablegen_file
+  (def
+    (value
+      (identifier))
+    (record_body
+      (parent_class_list
+        (identifier))
+      (body))))
+
+================================================================================
+String with Comment Chars
+================================================================================
+
+def Callseq_Start :
+  NVPTXInst<"\\{ // callseq $amt1, $amt2\n"
+            "\t.reg .b32 temp_param_reg;">;
+
+---
+
+(tablegen_file
+  (def
+    (value
+      (identifier))
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (concatenated_string
+            (string
+              (escape_sequence)
+              (string_content)
+              (escape_sequence))
+            (string
+              (escape_sequence)
+              (string_content)))))
+      (body))))
+
+================================================================================
+String with Comment Chars (2)
+================================================================================
+
+class PseudoUseParamInst :
+  NVPTXInst<"// Pseudo use of $src">;
+
+---
+
+(tablegen_file
+  (class
+    (identifier)
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (string
+            (string_content))))
+      (body))))
+
+================================================================================
+Trailing #
+================================================================================
+
+// Mask setting all 0s or 1s
+def NAME# : I<0, Pseudo>;
+
+---
+
+(tablegen_file
+  (comment)
+  (def
+    (value
+      (paste_value
+        (value
+          (identifier))))
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (integer))
+        (value
+          (identifier)))
+      (body))))
+
+================================================================================
+Nested Comment
+================================================================================
+
+/* Foo
+  bar
+  /* 
+  blah
+  */
+
+  stuff
+  */
+
+def x;
+
+---
+
+(tablegen_file
+  (multiline_comment)
+  (def
+    (value
+      (identifier))
+    (record_body
+      (body))))
+
+================================================================================
+Comment in Code String
+================================================================================
+
+def frag_anyptr : PatFrag<(ops node:$src),
+                   (int_mytarget_anyptr node:$src),
+                   [{ return true; // C++ code }]> {
+}
+
+---
+
+(tablegen_file
+  (def
+    (value
+      (identifier))
+    (record_body
+      (parent_class_list
+        (identifier)
+        (value
+          (dag_initializer
+            (dag_arg
+              (value
+                (identifier)))
+            (dag_arg_list
+              (dag_arg
+                (value
+                  (identifier))
+                (var)))))
+        (value
+          (dag_initializer
+            (dag_arg
+              (value
+                (identifier)))
+            (dag_arg_list
+              (dag_arg
+                (value
+                  (identifier))
+                (var)))))
+        (value
+          (code)))
+      (body))))

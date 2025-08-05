@@ -1,0 +1,52 @@
+{
+  "name": "tree-sitter-cpon",
+  "version": "1.0.0",
+  "description": "ChainPack Object Notation (CPON) grammar for tree-sitter",
+  "main": "bindings/node",
+  "keywords": [
+    "parsing",
+    "lexer",
+    "CPON",
+    "ChainPack Object Notation"
+  ],
+  "author": "Fanda Vacek <fvacek@elektroline.cz>",
+  "contributors": [
+    "Amaan Qureshi <amaanq12@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amaanq/tree-sitter-cpon/issues"
+  },
+  "homepage": "https://github.com/amaanq/tree-sitter-cpon#readme",
+  "dependencies": {
+    "nan": "^2.14.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "eslint-config-google": "^0.14.0",
+    "tree-sitter-cli": "^0.20.8"
+  },
+  "repository": "https://github.com/amaanq/tree-sitter-cpon",
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "test": "tree-sitter test && script/parse-examples",
+    "parse": "tree-sitter parse",
+    "test-windows": "tree-sitter test",
+    "lint": "eslint grammar.js"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.cpon",
+	  "injection-regex": "cpon",
+      "file-types": [
+        "cpon"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ],
+      "indents": [
+        "queries/indents.scm"
+      ]
+    }
+  ]
+}

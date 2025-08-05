@@ -1,0 +1,186 @@
+==========================
+Object Literals
+==========================
+
+# result: { "bar": 12.0, "foo": null }
+
+# empty
+_o = { }
+
+# single
+_o = { "foo": null }
+_o = { "foo": null, }
+
+# multiple
+_o = { "foo": null, "bar": 12.0 }
+_o = { "foo": null, "bar": 12.0, }
+_o = {
+    "foo": null,
+    "bar": 12.0,
+}
+
+{
+    "foo": null,
+    "bar": 12.0
+}
+
+--------------------------
+
+(program
+  (comment)
+  (comment)
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (object))
+  (comment)
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (object
+      (entry
+        (key
+          (string))
+        (value
+          (null)))))
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (object
+      (entry
+        (key
+          (string))
+        (value
+          (null)))))
+  (comment)
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (object
+      (entry
+        (key
+          (string))
+        (value
+          (null)))
+      (entry
+        (key
+          (string))
+        (value
+          (float)))))
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (object
+      (entry
+        (key
+          (string))
+        (value
+          (null)))
+      (entry
+        (key
+          (string))
+        (value
+          (float)))))
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (object
+      (entry
+        (key
+          (string))
+        (value
+          (null)))
+      (entry
+        (key
+          (string))
+        (value
+          (float)))))
+  (object
+    (entry
+      (key
+        (string))
+      (value
+        (null)))
+    (entry
+      (key
+        (string))
+      (value
+        (float)))))
+
+==========================
+Object Type Def
+==========================
+
+# result: { "foo": "foo", "bar": "bar" }
+
+merge({ "foo": "foo" }, object!(parse_json!(s'{"bar":"bar"}')))
+
+--------------------------
+
+(program
+  (comment)
+  (function_call
+    function_name: (ident)
+    (arguments
+      (object
+        (entry
+          (key
+            (string))
+          (value
+            (string))))
+      (function_call
+        function_name: (ident)
+        (arguments
+          (function_call
+            function_name: (ident)
+            (arguments
+              (raw_string))))))))
+
+==========================
+Object undefined upgrade
+==========================
+
+# result: {"x": {"foo": null}, "typedef": {"object": {"foo": {"null": true}}}}
+
+. = {}
+
+# x is an object containing a single field foo that is assigned an undefined value that is upgraded to null
+x = {"foo": .x}
+{"x": x, "typedef": type_def(x)}
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (event)))
+    right: (object))
+  (comment)
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (object
+      (entry
+        (key
+          (string))
+        (value
+          (query
+            (event)
+            (path
+              (field)))))))
+  (object
+    (entry
+      (key
+        (string))
+      (value
+        (ident)))
+    (entry
+      (key
+        (string))
+      (value
+        (function_call
+          function_name: (ident)
+          (arguments
+            (ident)))))))

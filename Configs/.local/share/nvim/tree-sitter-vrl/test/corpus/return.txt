@@ -1,0 +1,631 @@
+==========================
+Return
+==========================
+
+# result: { "foo": true }
+
+.foo = true
+return .
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (return
+    (query
+      (event))))
+
+==========================
+Expression after return
+==========================
+
+# result: { "foo": true }
+
+.foo = true
+return .
+.foo = false
+abort "unreachable"
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (return
+    (query
+      (event)))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (boolean))
+  (abort
+    message: (string)))
+
+==========================
+Return bad type in closure
+==========================
+
+# DIAGNOSTICS
+# result:
+#
+# error[E122]: type mismatch in closure return type
+#  ┌─ :2:37
+#  │
+#  2 │       filter([1, 2, 3]) -> |_key, _value| {
+#  │ ╭─────────────────────────────────────────^
+#  │ │ ╭───────────────────────────────────────'
+#  │ │ │ ╭─────────────────────────────────────'
+#  3 │ │ │ │   return 0
+#  4 │ │ │ │   true
+#  5 │ │ │ │ }
+#  │ ╰─│─│─^ block returns invalid value type
+#  │   ╰─│─' expected: boolean
+#  │     ╰─' received: integer or boolean
+#  │
+#  = see language documentation at https://vrl.dev
+#  = try your code in the VRL REPL, learn more at https://vrl.dev/examples
+
+filter([1, 2, 3]) -> |_key, _value| {
+  return 0
+  true
+}
+
+--------------------------
+
+(program
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (function_call
+    function_name: (ident)
+    (arguments
+      (array
+        (integer)
+        (integer)
+        (integer)))
+    (closure
+      (closure_variables
+        (ident)
+        (ident))
+      body: (block
+        (return
+          (integer))
+        (boolean)))))
+
+==========================
+Return custom
+==========================
+
+# result: { "foo": true, "bar": 42 }
+
+ret.foo = true
+ret.bar = 42
+return ret
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (query
+        (ident)
+        (path
+          (field))))
+    right: (boolean))
+  (assignment
+    left: (assign_target
+      (query
+        (ident)
+        (path
+          (field))))
+    right: (integer))
+  (return
+    (ident)))
+
+==========================
+Return in closure
+==========================
+
+# result: 0
+
+foo = 0
+
+for_each({ "foo": "bar", "lorem": "ipsum" }) -> |_key, _value| {
+  return 42
+  foo = 1
+}
+
+foo
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (integer))
+  (function_call
+    function_name: (ident)
+    (arguments
+      (object
+        (entry
+          (key
+            (string))
+          (value
+            (string)))
+        (entry
+          (key
+            (string))
+          (value
+            (string)))))
+    (closure
+      (closure_variables
+          (ident)
+          (ident))
+      body: (block
+        (return
+          (integer))
+        (assignment
+          left: (assign_target
+            (ident))
+          right: (integer)))))
+  (ident))
+
+==========================
+Return in closure after closure
+==========================
+
+# result: null
+
+for_each({ "foo": "bar", "lorem": "ipsum" }) -> |_key, _value| {
+
+  for_each({ "foo": "bar", "lorem": "ipsum" }) -> |_key, _value| {
+    true
+  }
+
+  return 42
+}
+
+--------------------------
+
+(program
+  (comment)
+  (function_call
+    function_name: (ident)
+    (arguments
+      (object
+        (entry
+          (key
+            (string))
+          (value
+            (string)))
+        (entry
+          (key
+            (string))
+          (value
+            (string)))))
+    (closure
+      (closure_variables
+          (ident)
+          (ident))
+      body: (block
+        (function_call
+          function_name: (ident)
+          (arguments
+            (object
+              (entry
+                (key
+                  (string))
+                (value
+                  (string)))
+              (entry
+                (key
+                  (string))
+                (value
+                  (string)))))
+          (closure
+            (closure_variables
+                (ident)
+                (ident))
+            body: (block
+              (boolean))))
+        (return
+          (integer))))))
+
+==========================
+Return in closure argument
+==========================
+
+# result: [0, 1]
+
+foo = 0
+bar = 0
+
+for_each({ "foo": for_each({}) -> |_key, _value| { foo = 1; return true } }) -> |_key, _value| {
+  bar = 1
+}
+
+[foo, bar]
+
+--------------------------
+
+(program
+  (comment)
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (integer))
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (integer))
+  (function_call
+    function_name: (ident)
+    (arguments
+      (object
+        (entry
+          (key
+            (string))
+          (value
+            (function_call
+              function_name: (ident)
+              (arguments
+                (object))
+                (closure
+                  (closure_variables
+                      (ident)
+                      (ident))
+                  body: (block
+                    (assignment
+                      left: (assign_target
+                        (ident))
+                      right: (integer))
+                    (return
+                      (boolean)))))))))
+    (closure
+      (closure_variables
+        (ident)
+        (ident))
+      body: (block
+        (assignment
+          left: (assign_target
+            (ident))
+          right: (integer)))))
+  (array
+    (ident)
+    (ident)))
+
+==========================
+Return in closure in closure
+==========================
+
+# result: {}
+
+filter({ "bar": null }) -> |_key, _value| {
+  for_each({ "foo": null }) -> |_key, _value| {
+    return 0
+  }
+
+  false
+}
+
+--------------------------
+
+(program
+  (comment)
+  (function_call
+    function_name: (ident)
+    (arguments
+      (object
+        (entry
+          (key
+            (string))
+          (value
+            (null)))))
+    (closure
+      (closure_variables
+        (ident)
+        (ident))
+      body: (block
+        (function_call
+          function_name: (ident)
+          (arguments
+            (object
+              (entry
+                (key
+                  (string))
+                (value
+                  (null)))))
+          (closure
+            (closure_variables
+              (ident)
+              (ident))
+            body: (block
+              (return
+                (integer)))))
+        (boolean)))))
+
+==========================
+Return true
+==========================
+
+# result: true
+
+return true
+
+--------------------------
+
+(program
+  (comment)
+  (return
+    (boolean)))
+
+==========================
+Return typedef
+==========================
+
+# result: {
+#   "a": {
+#     "never": true
+#   },
+#   "b": {
+#     "bytes": true
+#   },
+#   "b2": {
+#     "bytes": true
+#   },
+#   "c": {
+#     "never": true
+#   },
+#   "d": {
+#     "object": {}
+#   },
+#   "e": {
+#     "null": true
+#   },
+#   "f": {
+#     "bytes": true,
+#     "integer": true
+#   },
+#   "g": {
+#     "bytes": true
+#   }
+# }
+
+x = "string"
+
+.a = type_def({return .})
+.b = type_def({if false {return .} else {"string"}})
+.b2 = type_def({if true {return .} else {"string"}})
+.c = type_def({return {if false {abort} else {"string"}}})
+.d = type_def({{} | {return .}})
+.e = type_def({ if false {return .} })
+.f = type_def({
+   x = "string"
+   if false {
+      return .
+   } else {
+      x = 3
+   }
+   x
+})
+.g = type_def({
+   return .
+   "string"
+})
+.
+
+--------------------------
+
+(program
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (assignment
+    left: (assign_target
+      (ident))
+    right: (string))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (return
+            (query
+              (event)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (if_statement
+            condition: (predicate
+              (boolean))
+            (block
+              (return
+                (query
+                  (event))))
+            (block
+              (string)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (if_statement
+            condition: (predicate
+              (boolean))
+            (block
+              (return
+                (query
+                  (event))))
+            (block
+              (string)))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (return
+            (block
+              (if_statement
+                condition: (predicate
+                  (boolean))
+                (block
+                  (abort))
+                (block
+                  (string)))))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (binary_expression
+            left: (object)
+            right: (block
+              (return
+                (query
+                  (event)))))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (if_statement
+            condition: (predicate
+              (boolean))
+            (block
+              (return
+                (query
+                  (event)))))))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (assignment
+            left: (assign_target
+              (ident))
+            right: (string))
+          (if_statement
+            condition: (predicate
+              (boolean))
+            (block
+              (return
+                (query
+                  (event))))
+            (block
+              (assignment
+                left: (assign_target
+                  (ident))
+                right: (integer))))
+          (ident)))))
+  (assignment
+    left: (assign_target
+      (query
+        (event)
+        (path
+          (field))))
+    right: (function_call
+      function_name: (ident)
+      (arguments
+        (block
+          (return
+            (query
+              (event)))
+          (string)))))
+  (query
+    (event)))
