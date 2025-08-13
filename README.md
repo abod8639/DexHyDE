@@ -109,10 +109,10 @@ As a second install option, you can also use `Hyde-install`, which might be easi
 View installation instructions for HyDE in [Hyde-cli - Usage](https://github.com/kRHYME7/Hyde-cli?tab=readme-ov-file#usage).
 -->
 
-Please reboot after the install script completes and takes you to the SDDM login screen (or black screen) for the first time.
-For more details, please refer to the [installation wiki](https://github.com/HyDE-Project/HyDE/wiki/installation).
+<!-- Please reboot after the install script completes and takes you to the SDDM login screen (or black screen) for the first time.
+For more details, please refer to the [installation wiki](https://github.com/HyDE-Project/HyDE/wiki/installation). -->
 
-<div align="right">
+<!-- <div align="right">
   <br>
   <a href="#-design-by-t2"><kbd> <br> 🡅 <br> </kbd></a>
 </div>
@@ -120,28 +120,28 @@ For more details, please refer to the [installation wiki](https://github.com/HyD
 <div align="right">
   <br>
   <a href="#-design-by-t2"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
+</div> -->
 
-<a id="contributing"></a>
-<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=25&pause=1000&color=CCA9DD&vCenter=true&width=435&height=25&lines=CONTRIBUTING" width="450"/>
+<!-- <a id="contributing"></a>
+<img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=25&pause=1000&color=CCA9DD&vCenter=true&width=435&height=25&lines=CONTRIBUTING" width="450"/> -->
 
 ---
 
-We welcome contributions from the community! To get started:
+<!-- We welcome contributions from the community! To get started:
 
 - Check our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
 - Read about team roles in [TEAM_ROLES.md](TEAM_ROLES.md)
 - Review our release process in [RELEASE_POLICY.md](RELEASE_POLICY.md)
 - Add yourself to [CONTRIBUTORS.md](CONTRIBUTORS.md) when making your first PR
 
-Whether you're helping with code, testing, or documentation, we appreciate your support in making HyDE better for everyone. Thank you!
+Whether you're helping with code, testing, or documentation, we appreciate your support in making HyDE better for everyone. Thank you! -->
 
-<div align="right">
+<!-- <div align="right">
   <br>
   <a href="#-design-by-t2"><kbd> <br> 🡅 <br> </kbd></a>
-</div>
+</div> -->
 
-<a id="updating"></a>
+<!-- <a id="updating"></a>
 <img src="https://readme-typing-svg.herokuapp.com?font=Lexend+Giga&size=25&pause=1000&color=CCA9DD&vCenter=true&width=435&height=25&lines=UPDATING" width="450"/>
 
 ---
@@ -152,7 +152,7 @@ To update HyDE, you will need to pull the latest changes from GitHub and restore
 cd ~/HyDE/Scripts
 git pull origin master
 ./install.sh -r
-```
+``` -->
 
 <!-- > [!IMPORTANT]
 > Please note that any configurations you made will be overwritten if listed to be done so as listed by `Scripts/restore_cfg.psv`.
