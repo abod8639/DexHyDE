@@ -1,18 +1,20 @@
-/* DEPRECATED
-Instead of this file, please use 
-			custom-module.jsonc for 'custom/module' 
-			wlr-module.jsonc for 'wlr/module'
-			hyprland-module.jsonc for 'hyprland/module'
+    "hyprland/window": {
+        "format": "  {}",
+        "rotate": ${r_deg},
+        "separate-outputs": true,
+        "rewrite": {
+            "(.*)${USER}@${set_sysname}:(.*)": "$1  :$2",
+            "(.*) — Mozilla Firefox": "$1 󰈹",
+            "(.*)Mozilla Firefox": "$1 Firefox 󰈹",
+            "(.*) - Visual Studio Code": "$1 󰨞",
+            "(.*)Visual Studio Code": "$1 Code 󰨞",
+            "(.*) — Dolphin": "$1 󰉋",
+            "(.*)Spotify.*": "$1 Spotify 󰓇",
+            "(.*)Steam": "$1 Steam 󰓓",
+            "(.*) - Discord": "$1  ",
+            "(.*?)-\\s*YouTube(.*)": "$1󰗃", 
+            "(.*?\\s)YouTube(.*)": "$1YouTube 󰗃"
+        },
+        "max-length": 50
+    },
 
-? These files are deprecated and will be removed in a future release.
-
-* Please Manually REMOVE this module inside the "modules" folder, to avoid any clutter.
-
-TODO: Manual removal will be announced in the release notes after  the removal of this module upstream.
-
-code:   e3b0c44298fc1c14   - lol just a random hash so we can identify the file in the future
-
-
-{} // Empty Object to avoid syntax errors
-*/
-{}

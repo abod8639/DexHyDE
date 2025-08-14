@@ -1,26 +1,16 @@
-/*
-HyDE provides xdg/share/fastfetch/presets/hyde/*.config.jsonc files for different layouts. 
-You can also create your own config.jsonc file in the same directory to create a custom theme. 
-
-To test HyDE's fastfetch theme, run:
-fastfetch --config hyde/*.jsonc
-
-*/
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "source": "\"$(fastfetch.sh logo)\"",
-    "height": 18
+    "source": "$(find \"${XDG_CONFIG_HOME:-$HOME/.config}/fastfetch/pngs/\" -name \"*.png\" | shuf -n 1)",
+    "height": 20
   },
   "display": {
     "separator": " : "
   },
   "modules": [
     {
-      "type": "command",
-      "key": "  ",
-      "keyColor": "blue",
-      "text": "splash=$(hyprctl splash);echo $splash"
+      "type": "custom",
+      "format": "\u001b[36m   󰄛 DEXTER : dev"
     },
     {
       "type": "custom",
@@ -29,7 +19,7 @@ fastfetch --config hyde/*.jsonc
     {
       "type": "chassis",
       "key": "  󰇺 Chassis",
-      "format": "{1} {2} {3}"
+      "format": "{3}"
     },
     {
       "type": "os",
@@ -56,7 +46,7 @@ fastfetch --config hyde/*.jsonc
     },
     {
       "type": "terminal",
-      "key": "   Terminal",
+      "key": "  >_ Terminal",
       "keyColor": "yellow"
     },
     {
@@ -99,15 +89,14 @@ fastfetch --config hyde/*.jsonc
     },
     {
       "type": "memory",
-      "key": "   Memory ",
+      "key": "    Memory",
       "keyColor": "magenta"
     },
     {
-      "type": "disk",
+      "type": "command",
       "key": "  󱦟 OS Age ",
-      "folders": "/",
       "keyColor": "red",
-      "format": "{days} days"
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
     },
     {
       "type": "uptime",
@@ -120,7 +109,7 @@ fastfetch --config hyde/*.jsonc
     },
     {
       "type": "colors",
-      "paddingLeft": 2,
+      "paddingLeft": 5,
       "symbol": "circle"
     },
     "break"
