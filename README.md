@@ -20,7 +20,7 @@ Multi-language README support
 [![ar](https://img.shields.io/badge/lang-AR-orange.svg)](Source/docs/README.ar.md)
 [![pt-br](https://img.shields.io/badge/lang-pt--br-006400.svg)](Source/docs/README.pt-br.md)
 
-<div align="center">
+<!-- <div align="center">
 
 <br>
 
@@ -47,7 +47,7 @@ Multi-language README support
 </div>
 
 Check this out for the full note:
-[Journey to HyDE and beyond](./Hyprdots-to-HyDE.md)
+[Journey to HyDE and beyond](./Hyprdots-to-HyDE.md) -->
 
 <!--
 <img alt="Dynamic JSON Badge" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscordapp.com%2Fapi%2Finvites%2FmT5YqjaJFh%3Fwith_counts%3Dtrue&query=%24.approximate_member_count&suffix=%20members&style=for-the-badge&logo=discord&logoSize=auto&label=The%20HyDe%20Project&labelColor=ebbcba&color=c79bf0">
